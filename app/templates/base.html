@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+</head>
+<body>
+    <div class="login-container">
+        <input type="text" placeholder="ID"> <!-- ช่องกรอกข้อมูล ID -->
+        <input type="password" placeholder="Password"> <!-- ช่องกรอกข้อมูล Password -->
+        <button type="button" onclick="goToHomePage()">Login</button> <!-- ปุ่ม Login -->
+        <button class="register" onclick="goToRegisterPage()">Register</button> <!-- ปุ่ม Register แบบไม่มีกรอบ -->
+    </div>
+
+    <script>
+        function goToHomePage() {
+            window.location.href = "home.html";
+        }
+
+        function goToRegisterPage() {
+            window.location.href = "/register"; 
+        }
+    </script>
+</body>
+</html>

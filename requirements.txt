@@ -1,0 +1,6 @@
+flask
+flask_sqlalchemy
+flask_jwt_extended
+redis
+jinja2
+python-dotenv
