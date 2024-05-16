@@ -1,4 +1,4 @@
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, current_app, request, jsonify
 from flask_jwt_extended import create_access_token
 from werkzeug.security import check_password_hash, generate_password_hash
 from app.models import User
@@ -6,12 +6,14 @@ from app import db
 import random
 import string
 import smtplib
+import redis
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
-
-
-
+from .models import User
+from . import db
+  
 bp = Blueprint('auth', __name__)
+
 
 @bp.route('/', methods=['POST'])
 def login():
@@ -37,6 +39,9 @@ def register():
     email = data.get('email')
 
     otp = ''.join(random.choices(string.digits, k=6))
+
+    redis_client = current_app.redis_client
+    redis_client.setex(f"otp:{username}", 300, otp)
 
     user = User(username=username, password=password, email=email, otp=otp)
     db.session.add(user)

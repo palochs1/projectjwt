@@ -4,6 +4,7 @@ from flask_jwt_extended import JWTManager
 from redis import Redis
 from flask_migrate import Migrate
 from config import Config
+import redis
 
 db = SQLAlchemy()
 jwt = JWTManager()
@@ -21,6 +22,8 @@ def create_app():
 
     jwt.init_app(app)
     migrate = Migrate(app, db)
+
+    app.redis_client = redis.StrictRedis.from_url(app.config['REDIS_URL'], decode_responses=True)
 
     from app import routes, auth
     app.register_blueprint(routes.bp)
